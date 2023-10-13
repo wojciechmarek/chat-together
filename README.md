@@ -8,7 +8,7 @@ To understand and use the WebRTC protocol in the real application.
 
 ## Demo
 
-A demo is available at [here](to fill).
+A demo is available at [chat-together-ten.vercel.app](https://chat-together-ten.vercel.app).
 
 ## Screenshots
 
