@@ -1,4 +1,3 @@
-import { Phone, Video } from "lucide-react";
 import { Bar, CallButtons, Conversation } from "../components";
 import { useNavigate } from "react-router-dom";
 
