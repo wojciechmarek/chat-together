@@ -21,7 +21,7 @@ export const Bar = (props: BarProps) => {
   }, [userName]);
 
   return (
-    <div className="flex flex-row items-center justify-between mt-8">
+    <div className="flex flex-row items-center justify-between">
       <button
         className="grid w-12 h-12 rounded-full place-items-center"
         onClick={onBackClick}

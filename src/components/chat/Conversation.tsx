@@ -27,25 +27,32 @@ export const Conversation = (props: ConversationProps) => {
   };
 
   return (
-    <div className="w-full mt-8 bg-[#242233] flex flex-col rounded-2xl">
-      <div className="flex flex-col items-center justify-between flex-grow px-4 py-2">
+    <div className="w-full h-full bg-[#242233] flex flex-col rounded-2xl">
+      <div className="flex flex-col items-center flex-grow gap-1 px-4 py-2">
         {messages.map((message) => (
           <div
             key={message.id}
             className={clsx(
               message.isMine ? "ml-auto" : "mr-auto",
-              "flex flex-col items-start justify-start w-max mt-2"
+              "flex flex-col items-start justify-start w-max"
             )}
           >
             <div
               className={clsx(
                 message.isMine ? "bg-[#9781ED]" : "bg-[#372F4D]",
-                "flex flex-col items-start justify-start px-4 py-2 rounded-2xl"
+                "flex flex-col items-start justify-start px-4 py-2 rounded-2xl w-full"
               )}
             >
-              <p className="text-slate-100">{message.content}</p>
+              <p className="text-slate-100 text-clip">{message.content}</p>
             </div>
-            <p className="text-xs text-slate-100">{message.date}</p>
+            <p
+              className={clsx(
+                message.isMine ? "ml-auto" : "mr-auto",
+                "text-xs text-slate-100 px-1"
+              )}
+            >
+              {message.date}
+            </p>
           </div>
         ))}
       </div>

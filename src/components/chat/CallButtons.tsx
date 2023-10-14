@@ -9,7 +9,7 @@ export const CallButtons = (props: CallButtonsProps) => {
   const { onCallClick, onVideoClick } = props;
 
   return (
-    <div className="flex justify-end gap-4 mt-8">
+    <div className="flex justify-end gap-4">
       <button
         className="w-12 h-12 rounded-full bg-[#2E2940] grid place-content-center"
         onClick={onCallClick}
