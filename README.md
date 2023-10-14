@@ -18,8 +18,8 @@ A demo is available at [chat-together-ten.vercel.app](https://chat-together-ten.
 
 - 🎁 Repository: regular Git repository
 - 🧰 Framework: react with SWC
-- 🛠️ Tools: vite, react router
-- 🎨 Styling: tailwind CSS
+- 🛠️ Tools: vite, react router, clsx
+- 🎨 Styling: tailwind CSS, lucide icons, dicebear avatars
 - 💎 Others: mobile-first approach, web RTC commination
 
 ## How to start
