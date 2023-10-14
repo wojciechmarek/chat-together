@@ -61,8 +61,8 @@ export const Conversation = (props: ConversationProps) => {
           <div
             key={message.id}
             className={clsx(
-              message.isMine ? "ml-auto" : "mr-auto",
-              "flex flex-col items-end justify-start"
+              message.isMine ? "ml-auto items-end" : "mr-auto items-start",
+              "flex flex-col  justify-start"
             )}
           >
             <div
