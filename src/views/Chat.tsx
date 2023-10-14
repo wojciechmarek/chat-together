@@ -1,5 +1,11 @@
 import { useState } from "react";
-import { Bar, CallButtons, Conversation, Message } from "../components";
+import {
+  Bar,
+  CallButtons,
+  CallScreen,
+  Conversation,
+  Message,
+} from "../components";
 import { useNavigate } from "react-router-dom";
 
 export const Chat = () => {
@@ -8,6 +14,8 @@ export const Chat = () => {
   const handleOnBackClick = () => {
     navigate("/");
   };
+
+  const [isCallScreenVisible, setIsCallScreenVisible] = useState(false);
 
   const [messages, setMessages] = useState<Message[]>([
     {
@@ -47,28 +55,47 @@ export const Chat = () => {
     setMessages([...messages, newMessage]);
   };
 
+  const handleOnCallClick = () => {
+    setIsCallScreenVisible(true);
+  };
+
+  const handleOnVideoClick = () => {
+    setIsCallScreenVisible(true);
+  };
+
+  const handleOnEndCallClick = () => {
+    setIsCallScreenVisible(false);
+  };
+
   return (
-    <div className="flex flex-col h-full mx-4 md:mx-auto md:max-w-3xl">
-      <div className="mt-8">
-        <Bar
-          isOnline={true}
-          lastSeenDate="2 hours ago"
-          userName="Visiting User"
-          onBackClick={handleOnBackClick}
-        />
+    <>
+      {isCallScreenVisible && (
+        <div className="absolute w-full h-full">
+          <CallScreen onEndCallClick={handleOnEndCallClick} />
+        </div>
+      )}
+      <div className="flex flex-col h-full mx-4 md:mx-auto md:max-w-3xl">
+        <div className="mt-8">
+          <Bar
+            isOnline={true}
+            lastSeenDate="2 hours ago"
+            userName="Visiting User"
+            onBackClick={handleOnBackClick}
+          />
+        </div>
+        <div className="mt-8">
+          <CallButtons
+            onCallClick={handleOnCallClick}
+            onVideoClick={handleOnVideoClick}
+          />
+        </div>
+        <div className="flex-grow my-8">
+          <Conversation
+            onSendMessageClick={handleOnSendMessageClick}
+            messages={messages}
+          />
+        </div>
       </div>
-      <div className="mt-8">
-        <CallButtons
-          onCallClick={() => alert("Calling...")}
-          onVideoClick={() => alert("Video calling...")}
-        />
-      </div>
-      <div className="flex-grow my-8">
-        <Conversation
-          onSendMessageClick={handleOnSendMessageClick}
-          messages={messages}
-        />
-      </div>
-    </div>
+    </>
   );
 };
