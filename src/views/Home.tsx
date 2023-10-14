@@ -36,7 +36,10 @@ export const Home = () => {
       ) : (
         <div className="md:mt-0">
           <div className="grid mx-auto rounded-md w-36 h-36 md:w-52 md:h-52 bg-stone-50 place-items-center">
-            <QRCode value="hey" className="w-32 h-32 md:w-48 md:h-48" />
+            <QRCode
+              value="https://https://chat-together-ten.vercel.app/chat"
+              className="w-32 h-32 md:w-48 md:h-48"
+            />
           </div>
           <p className="mt-10 text-sm text-center md:hidden text-stone-50">
             Scan the QR code above to start the chat
