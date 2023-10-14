@@ -39,7 +39,7 @@ export const Chat = () => {
   const handleOnSendMessageClick = (message: string) => {
     const newMessage: Message = {
       content: message,
-      date: "now",
+      date: new Date().toLocaleString(),
       id: String(messages.length + 1),
       isMine: true,
     };

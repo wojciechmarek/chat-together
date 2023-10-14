@@ -1,6 +1,6 @@
 import clsx from "clsx";
 import { SendHorizontal } from "lucide-react";
-import { useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 
 export interface Message {
   id: string;
@@ -17,33 +17,61 @@ export interface ConversationProps {
 export const Conversation = (props: ConversationProps) => {
   const { onSendMessageClick, messages } = props;
 
+  const listRef = useRef<HTMLDivElement>(null);
   const [input, setInput] = useState("");
 
-  const handleOnSendMessageClick = () => {
+  const handleOnSendMessageClick = useCallback(() => {
     if (input.length > 0) {
       onSendMessageClick(input);
       setInput("");
     }
-  };
+  }, [input, onSendMessageClick]);
+
+  useEffect(() => {
+    const keyDownHandler = (event: KeyboardEvent) => {
+      if (event.key === "Enter") {
+        event.preventDefault();
+        handleOnSendMessageClick();
+      }
+    };
+
+    document.addEventListener("keydown", keyDownHandler);
+
+    return () => {
+      document.removeEventListener("keydown", keyDownHandler);
+    };
+  }, [handleOnSendMessageClick]);
+
+  useEffect(() => {
+    if (listRef.current) {
+      listRef.current.scrollTo({
+        top: listRef.current.scrollHeight,
+        behavior: "smooth",
+      });
+    }
+  }, [messages]);
 
   return (
     <div className="w-full h-full bg-[#242233] flex flex-col rounded-2xl">
-      <div className="flex flex-col items-center flex-grow gap-1 px-4 py-2">
+      <div
+        className="flex flex-col items-center flex-grow h-0 gap-1 px-4 py-2 overflow-y-auto"
+        ref={listRef}
+      >
         {messages.map((message) => (
           <div
             key={message.id}
             className={clsx(
               message.isMine ? "ml-auto" : "mr-auto",
-              "flex flex-col items-start justify-start w-max"
+              "flex flex-col items-end justify-start"
             )}
           >
             <div
               className={clsx(
                 message.isMine ? "bg-[#9781ED]" : "bg-[#372F4D]",
-                "flex flex-col items-start justify-start px-4 py-2 rounded-2xl w-full"
+                "flex flex-col items-start justify-start px-4 py-2 rounded-2xl"
               )}
             >
-              <p className="text-slate-100 text-clip">{message.content}</p>
+              <p className="text-slate-100">{message.content}</p>
             </div>
             <p
               className={clsx(
@@ -66,7 +94,7 @@ export const Conversation = (props: ConversationProps) => {
           />
         </div>
         <button
-          className="w-12 h-12 rounded-full bg-[#2E2940] grid place-content-center"
+          className="w-12 h-12 rounded-full bg-[#9781ED] grid place-content-center"
           onClick={handleOnSendMessageClick}
         >
           <SendHorizontal color="#fff" size={24} />
